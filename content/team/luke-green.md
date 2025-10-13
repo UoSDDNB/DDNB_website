@@ -12,7 +12,4 @@ background:
 email: "L.A.Green@soton.ac.uk"
 ---
 
-Additional biographical information. Current projects include: 
-Integration of sequence and single-cell foundation models for disease understanding.
-Evaluation of fairness and bias in single-cell foundation models. 
-Using multiomics to characterise clonal expansion.
+Current projects include integrating sequence and single-cell foundation models to improve disease understanding; evaluating fairness and bias in single-cell foundation models; and using multi-omics to characterise clonal expansion.
