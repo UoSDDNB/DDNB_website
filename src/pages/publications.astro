@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+// Publications page with search and filtering
+
+const publications = await getCollection('publications');
+const teamMembers = await getCollection('team');
+
+// Sort publications by year (descending)
+const sortedPublications = publications.sort((a, b) => b.data.year - a.data.year);
+
+// Get unique years and themes for filtering
+const years = [...new Set(publications.map(pub => pub.data.year))].sort((a, b) => b - a);
+const themes = [...new Set(publications.flatMap(pub => pub.data.theme))].sort();
+
+// Create team member name mapping for highlighting
+const teamNames = new Set(teamMembers.map(member => member.data.name.toLowerCase()));
+const teamSurnames = new Set(teamMembers.map(member => {
+  const nameParts = member.data.name.toLowerCase().split(' ');
+  return nameParts[nameParts.length - 1]; // Last name
+}));
+
+// Group publications by year
+const publicationsByYear = sortedPublications.reduce((acc, pub) => {
+  const year = pub.data.year;
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(pub);
+  return acc;
+}, {} as Record<number, typeof sortedPublications>);
+
+// Function to highlight team members in author lists
+function highlightTeamMembers(authors: string[]): string {
+  return authors.map(author => {
+    const authorLower = author.toLowerCase();
+    const isTeamMember = teamNames.has(authorLower) || 
+      teamSurnames.has(authorLower.split(',')[0].trim());
+    
+    if (isTeamMember) {
+      return `<strong>${author}</strong>`;
+    }
+    return author;
+  }).join(', ');
+}
+---
+
+<BaseLayout title="Publications - Data-Driven Network Biology Group">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Publications</h1>
+        <p class="text-xl opacity-90">
+          Our research contributions to computational biology, single-cell analysis, and network biology. 
+          Lab members are highlighted in <strong>bold</strong> in the author lists.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Search and Filters -->
+  <section class="py-8 bg-white border-b border-gray-200">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <!-- Search Bar -->
+        <div class="relative mb-6">
+          <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Search publications by title, authors, journal, or keywords..."
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+          />
+        </div>
+        
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-4">
+          <div class="flex items-center space-x-2">
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            <span class="text-sm font-medium text-gray-700">Filter by:</span>
+          </div>
+          
+          <!-- Year Filter -->
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn active" data-filter="year" data-value="all">All Years</button>
+            {years.map(year => (
+              <button class="filter-btn" data-filter="year" data-value={year}>
+                {year}
+              </button>
+            ))}
+          </div>
+          
+          <!-- Theme Filter -->
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn" data-filter="theme" data-value="all">All Themes</button>
+            {themes.map(theme => (
+              <button class="filter-btn" data-filter="theme" data-value={theme}>
+                {theme.replace('-', ' ')}
+              </button>
+            ))}
+          </div>
+          
+          <!-- Featured Filter -->
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn" data-filter="featured" data-value="all">All</button>
+            <button class="filter-btn" data-filter="featured" data-value="true">Featured Only</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Publications by Year -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div id="publications-container">
+        {Object.entries(publicationsByYear).map(([year, yearPublications]) => (
+          <div class="year-section mb-12" data-year={year}>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-brand-primary pb-2">
+              {year}
+            </h2>
+            
+            <div class="space-y-6">
+              {yearPublications.map((pub) => (
+                <div class="publication-item card" data-themes={pub.data.theme.join(',')} data-featured={pub.data.featured}>
+                  <div class="flex flex-col md:flex-row md:items-start gap-4">
+                    <div class="flex-1">
+                      <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                        <a 
+                          href={pub.data.url || `https://doi.org/${pub.data.doi}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="hover:text-brand-primary transition-colors duration-200"
+                        >
+                          {pub.data.title}
+                          <svg class="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                          </svg>
+                        </a>
+                      </h3>
+                      
+                      <div class="text-gray-700 mb-3" set:html={highlightTeamMembers(pub.data.authors)}></div>
+                      
+                      <p class="text-gray-600 mb-3">
+                        <em>{pub.data.journal}</em> ({pub.data.year})
+                        {pub.data.doi && (
+                          <span class="ml-2">
+                            DOI: <a href={`https://doi.org/${pub.data.doi}`} class="text-brand-primary hover:text-brand-accent">{pub.data.doi}</a>
+                          </span>
+                        )}
+                      </p>
+                      
+                      {pub.data.featured && pub.data.abstract && (
+                        <details class="mb-3">
+                          <summary class="cursor-pointer text-sm font-medium text-brand-primary hover:text-brand-accent">
+                            Abstract
+                          </summary>
+                          <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                            {pub.data.abstract}
+                          </p>
+                        </details>
+                      )}
+                      
+                      <div class="flex flex-wrap gap-2">
+                        {pub.data.theme.map(theme => (
+                          <span class="tag text-xs">{theme.replace('-', ' ')}</span>
+                        ))}
+                        {pub.data.featured && (
+                          <span class="tag text-xs bg-brand-accent text-brand-dark">Featured</span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div class="flex flex-col gap-2 md:w-32">
+                      {pub.data.openAccessPdf && (
+                        <a 
+                          href={pub.data.openAccessPdf} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="btn-secondary text-sm flex items-center justify-center"
+                        >
+                          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                          </svg>
+                          PDF
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-12">
+        <p class="text-lg text-gray-600">No publications found matching your criteria.</p>
+        <button id="clear-filters" class="mt-4 text-brand-primary hover:text-brand-accent transition-colors duration-200">
+          Clear all filters
+        </button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Search and filter functionality
+  const searchInput = document.getElementById('search-input');
+  const publicationsContainer = document.getElementById('publications-container');
+  const noResults = document.getElementById('no-results');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  let currentFilters = {
+    search: '',
+    year: 'all',
+    theme: 'all',
+    featured: 'all'
+  };
+  
+  // Search functionality
+  searchInput?.addEventListener('input', (e) => {
+    currentFilters.search = e.target.value.toLowerCase();
+    filterPublications();
+  });
+  
+  // Filter buttons
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      const value = btn.dataset.value;
+      
+      // Update active state for this filter type
+      filterBtns.forEach(b => {
+        if (b.dataset.filter === filter) {
+          b.classList.remove('active');
+        }
+      });
+      btn.classList.add('active');
+      
+      // Update current filters
+      currentFilters[filter] = value;
+      filterPublications();
+    });
+  });
+  
+  // Clear filters
+  clearFiltersBtn?.addEventListener('click', () => {
+    currentFilters = { search: '', year: 'all', theme: 'all', featured: 'all' };
+    searchInput.value = '';
+    
+    filterBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.value === 'all') {
+        btn.classList.add('active');
+      }
+    });
+    
+    filterPublications();
+  });
+  
+  function filterPublications() {
+    const yearSections = publicationsContainer?.querySelectorAll('.year-section');
+    const publicationItems = publicationsContainer?.querySelectorAll('.publication-item');
+    let visibleCount = 0;
+    
+    publicationItems?.forEach(item => {
+      const title = item.querySelector('h3 a')?.textContent?.toLowerCase() || '';
+      const authors = item.querySelector('.text-gray-700')?.textContent?.toLowerCase() || '';
+      const journal = item.querySelector('em')?.textContent?.toLowerCase() || '';
+      const themes = item.dataset.themes?.toLowerCase() || '';
+      const featured = item.dataset.featured === 'true';
+      const year = item.closest('.year-section')?.dataset.year;
+      
+      const matchesSearch = !currentFilters.search || 
+        title.includes(currentFilters.search) || 
+        authors.includes(currentFilters.search) ||
+        journal.includes(currentFilters.search) ||
+        themes.includes(currentFilters.search);
+      
+      const matchesYear = currentFilters.year === 'all' || year === currentFilters.year;
+      const matchesTheme = currentFilters.theme === 'all' || themes.includes(currentFilters.theme);
+      const matchesFeatured = currentFilters.featured === 'all' || 
+        (currentFilters.featured === 'true' && featured) ||
+        (currentFilters.featured === 'false' && !featured);
+      
+      if (matchesSearch && matchesYear && matchesTheme && matchesFeatured) {
+        item.style.display = 'block';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    
+    // Show/hide year sections based on visible publications
+    yearSections?.forEach(section => {
+      const visibleInSection = section.querySelectorAll('.publication-item[style*="block"], .publication-item:not([style*="none"])');
+      if (visibleInSection.length > 0) {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+    
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults?.classList.remove('hidden');
+      publicationsContainer?.classList.add('hidden');
+    } else {
+      noResults?.classList.add('hidden');
+      publicationsContainer?.classList.remove('hidden');
+    }
+  }
+</script>
+
+<style>
+  .filter-btn {
+    @apply px-3 py-1 text-sm font-medium rounded-full border border-gray-300 text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors duration-200;
+  }
+  
+  .filter-btn.active {
+    @apply bg-brand-primary text-white border-brand-primary;
+  }
+</style>

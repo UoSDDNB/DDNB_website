@@ -1,0 +1,93 @@
+---
+export interface Props {
+  title: string;
+  type: 'dataset' | 'tool' | 'resource';
+  description: string;
+  image: string;
+  imageAlt: string;
+  tags: string[];
+  urls: {
+    github?: string;
+    paper?: string;
+    website?: string;
+    viewer?: string;
+  };
+  slug: string;
+}
+
+const { title, type, description, image, imageAlt, tags, urls, slug } = Astro.props;
+
+const typeColors = {
+  dataset: 'bg-blue-100 text-blue-800',
+  tool: 'bg-green-100 text-green-800',
+  resource: 'bg-purple-100 text-purple-800',
+};
+---
+
+<div class="card group">
+  <div class="flex items-start justify-between mb-3">
+    <div class="flex items-center space-x-2">
+      <span class={`px-2 py-1 text-xs font-medium rounded-full ${typeColors[type]}`}>
+        {type}
+      </span>
+    </div>
+  </div>
+  
+  <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg">
+    <img 
+      src={image} 
+      alt={imageAlt}
+      class="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+    />
+  </div>
+  
+  <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-brand-primary transition-colors duration-200">
+    {title}
+  </h3>
+  
+  <p class="text-gray-600 text-sm leading-relaxed mb-4">
+    {description}
+  </p>
+  
+  <div class="flex flex-wrap gap-2 mb-4">
+    {tags.slice(0, 3).map(tag => (
+      <span class="tag text-xs">{tag}</span>
+    ))}
+    {tags.length > 3 && (
+      <span class="tag text-xs">+{tags.length - 3} more</span>
+    )}
+  </div>
+  
+  <div class="flex flex-wrap gap-2">
+    {urls.github && (
+      <a 
+        href={urls.github} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-xs text-brand-primary hover:text-brand-accent transition-colors duration-200"
+      >
+        GitHub
+      </a>
+    )}
+    {urls.website && (
+      <a 
+        href={urls.website} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-xs text-brand-primary hover:text-brand-accent transition-colors duration-200"
+      >
+        Website
+      </a>
+    )}
+    {urls.viewer && (
+      <a 
+        href={urls.viewer} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-xs text-brand-primary hover:text-brand-accent transition-colors duration-200"
+      >
+        Viewer
+      </a>
+    )}
+  </div>
+</div>

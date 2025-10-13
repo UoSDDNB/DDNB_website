@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TeamMemberCard from '../components/TeamMemberCard.astro';
+import { getCollection } from 'astro:content';
+
+const teamMembers = await getCollection('team');
+---
+
+<BaseLayout title="About Us - Data-Driven Network Biology Group">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">About Our Group</h1>
+        <p class="text-xl opacity-90">
+          Integrating data, biology, and computation to understand cellular function
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Lab Overview -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Research Focus</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+              We are a dynamic research group at the University of Southampton, dedicated to advancing 
+              our understanding of biological systems through innovative computational approaches. 
+              Our work combines cutting-edge experimental techniques with state-of-the-art data analysis methods.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+              Our research spans single-cell biology, network analysis, and machine learning applications 
+              in biology. We develop computational tools and methods that make cutting-edge analysis 
+              accessible to the broader research community.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/research-themes" class="btn-primary">
+                Explore Our Research
+              </a>
+              <a href="/publications" class="btn-secondary">
+                View Publications
+              </a>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <img 
+              src="/hero/lab-group-photo.jpg" 
+              alt="Data-Driven Network Biology Group team photo"
+              class="w-full h-96 object-cover rounded-lg shadow-lg"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Research Areas -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Research Areas</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Single-Cell Biology</h3>
+            <p class="text-gray-600">
+              We develop and apply cutting-edge single-cell technologies to understand cellular heterogeneity and function.
+            </p>
+          </div>
+          
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Network Biology</h3>
+            <p class="text-gray-600">
+              We construct and analyze biological networks to understand complex cellular processes and disease mechanisms.
+            </p>
+          </div>
+          
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-brand-lime rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Machine Learning</h3>
+            <p class="text-gray-600">
+              We apply machine learning and deep learning approaches to analyze complex biological datasets.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Team Section -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          A diverse group of researchers passionate about advancing biology through data science. 
+          Our team combines expertise in computational biology, experimental biology, and data science.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {teamMembers.map((member) => (
+          <TeamMemberCard 
+            name={member.data.name}
+            role={member.data.role}
+            image={member.data.image}
+            quote={member.data.quote}
+            bioLong={member.data.bioLong}
+            github={member.data.github}
+            scholar={member.data.scholar}
+            website={member.data.website}
+            email={member.data.email}
+            slug={member.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Join the Lab Section -->
+  <section class="py-16 bg-brand-soft">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Join the Lab</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+          We're always looking for talented researchers to join our group. Whether you're interested in 
+          single-cell biology, network analysis, or machine learning applications in biology, we'd love to hear from you. 
+          We welcome applications from PhD students, postdocs, and visiting researchers.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="mailto:ddnetbio@soton.ac.uk" class="btn-primary">
+            Get in Touch
+          </a>
+          <a href="/publications" class="btn-secondary">
+            View Our Work
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Information -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Contact Information</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="card">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">University of Southampton</h3>
+            <div class="space-y-2 text-gray-600">
+              <p>Faculty of Medicine</p>
+              <p>Southampton General Hospital</p>
+              <p>Tremona Road</p>
+              <p>Southampton, SO16 6YD</p>
+              <p>United Kingdom</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Get in Touch</h3>
+            <div class="space-y-3">
+              <p class="text-gray-600">
+                <strong>Email:</strong> 
+                <a href="mailto:ddnetbio@soton.ac.uk" class="text-brand-primary hover:text-brand-accent">
+                  ddnetbio@soton.ac.uk
+                </a>
+              </p>
+              <p class="text-gray-600">
+                <strong>GitHub:</strong> 
+                <a href="https://github.com/SGDDNB" target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:text-brand-accent">
+                  @SGDDNB
+                </a>
+              </p>
+              <p class="text-gray-600">
+                <strong>University:</strong> 
+                <a href="https://www.southampton.ac.uk" target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:text-brand-accent">
+                  University of Southampton
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

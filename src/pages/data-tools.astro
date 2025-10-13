@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { getCollection } from 'astro:content';
+// Data tools page with search and filtering
+
+const tools = await getCollection('tools');
+
+// Get unique tags for filtering
+const allTags = [...new Set(tools.flatMap(tool => tool.data.tags))].sort();
+const allTypes = [...new Set(tools.map(tool => tool.data.type))].sort();
+---
+
+<BaseLayout title="Data & Tools - Data-Driven Network Biology Group">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Data & Tools</h1>
+        <p class="text-xl opacity-90">
+          Discover our datasets, software tools, and resources for computational biology research. 
+          All our tools are open-source and designed to make cutting-edge analysis accessible to the research community.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Search and Filters -->
+  <section class="py-8 bg-white border-b border-gray-200">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <!-- Search Bar -->
+        <div class="relative mb-6">
+          <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Search tools and datasets..."
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+          />
+        </div>
+        
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-4">
+          <div class="flex items-center space-x-2">
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            <span class="text-sm font-medium text-gray-700">Filter by:</span>
+          </div>
+          
+          <!-- Type Filter -->
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn active" data-filter="type" data-value="all">All Types</button>
+            {allTypes.map(type => (
+              <button class="filter-btn" data-filter="type" data-value={type}>
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </button>
+            ))}
+          </div>
+          
+          <!-- Tag Filter -->
+          <div class="flex flex-wrap gap-2">
+            {allTags.slice(0, 8).map(tag => (
+              <button class="filter-btn" data-filter="tag" data-value={tag}>
+                {tag}
+              </button>
+            ))}
+            {allTags.length > 8 && (
+              <button class="filter-btn" data-filter="tag" data-value="more">
+                +{allTags.length - 8} more
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tools Grid -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {tools.map((tool) => (
+          <ToolCard 
+            title={tool.data.title}
+            type={tool.data.type}
+            description={tool.data.description}
+            image={tool.data.image}
+            imageAlt={tool.data.imageAlt}
+            tags={tool.data.tags}
+            urls={tool.data.urls}
+            slug={tool.slug}
+          />
+        ))}
+      </div>
+      
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-12">
+        <p class="text-lg text-gray-600">No tools found matching your criteria.</p>
+        <button id="clear-filters" class="mt-4 text-brand-primary hover:text-brand-accent transition-colors duration-200">
+          Clear all filters
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Contribute to Our Tools</h2>
+        <p class="text-lg text-gray-600 mb-8">
+          All our tools are open-source and we welcome contributions from the community. 
+          Whether you want to report bugs, suggest features, or contribute code, we'd love to hear from you.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://github.com/SGDDNB" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            View on GitHub
+          </a>
+          <a href="mailto:ddnetbio@soton.ac.uk" class="btn-secondary">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Search and filter functionality
+  const searchInput = document.getElementById('search-input');
+  const toolsGrid = document.getElementById('tools-grid');
+  const noResults = document.getElementById('no-results');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  let currentFilters = {
+    search: '',
+    type: 'all',
+    tag: 'all'
+  };
+  
+  // Search functionality
+  searchInput?.addEventListener('input', (e) => {
+    currentFilters.search = e.target.value.toLowerCase();
+    filterTools();
+  });
+  
+  // Filter buttons
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      const value = btn.dataset.value;
+      
+      // Update active state
+      filterBtns.forEach(b => {
+        if (b.dataset.filter === filter) {
+          b.classList.remove('active');
+        }
+      });
+      btn.classList.add('active');
+      
+      // Update current filters
+      currentFilters[filter] = value;
+      filterTools();
+    });
+  });
+  
+  // Clear filters
+  clearFiltersBtn?.addEventListener('click', () => {
+    currentFilters = { search: '', type: 'all', tag: 'all' };
+    searchInput.value = '';
+    
+    filterBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.value === 'all') {
+        btn.classList.add('active');
+      }
+    });
+    
+    filterTools();
+  });
+  
+  function filterTools() {
+    const toolCards = toolsGrid?.querySelectorAll('.card');
+    let visibleCount = 0;
+    
+    toolCards?.forEach(card => {
+      const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+      const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
+      const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent?.toLowerCase() || '');
+      const type = card.querySelector('.px-2')?.textContent?.toLowerCase() || '';
+      
+      const matchesSearch = !currentFilters.search || 
+        title.includes(currentFilters.search) || 
+        description.includes(currentFilters.search);
+      
+      const matchesType = currentFilters.type === 'all' || type === currentFilters.type;
+      
+      const matchesTag = currentFilters.tag === 'all' || 
+        tags.some(tag => tag.includes(currentFilters.tag));
+      
+      if (matchesSearch && matchesType && matchesTag) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults?.classList.remove('hidden');
+      toolsGrid?.classList.add('hidden');
+    } else {
+      noResults?.classList.add('hidden');
+      toolsGrid?.classList.remove('hidden');
+    }
+  }
+</script>
+
+<style>
+  .filter-btn {
+    @apply px-3 py-1 text-sm font-medium rounded-full border border-gray-300 text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors duration-200;
+  }
+  
+  .filter-btn.active {
+    @apply bg-brand-primary text-white border-brand-primary;
+  }
+</style>

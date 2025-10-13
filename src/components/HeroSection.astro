@@ -1,0 +1,122 @@
+---
+// Hero section with scroll effects and animated overlays
+---
+
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/hero/biology-visualization.jpg" 
+      alt="Biology visualization showing cellular networks and data"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+  </div>
+  
+  <!-- Animated Overlays -->
+  <div class="absolute inset-0 z-10 pointer-events-none">
+    <!-- Floating RNA/DNA motifs -->
+    <div class="absolute top-1/4 left-1/4 animate-float" style="animation-delay: 0s;">
+      <div class="w-8 h-8 text-brand-accent opacity-60">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="absolute top-1/3 right-1/4 animate-float" style="animation-delay: 1s;">
+      <div class="w-6 h-6 text-brand-lime opacity-50">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 12h8M12 8v8"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="absolute bottom-1/3 left-1/3 animate-float" style="animation-delay: 2s;">
+      <div class="w-10 h-10 text-brand-soft opacity-40">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Hero Content -->
+  <div class="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+      Data-Driven Network Biology
+    </h1>
+    <p class="text-xl md:text-2xl mb-8 opacity-90 animate-slide-up" style="animation-delay: 0.3s;">
+      Integrating data, biology, and computation to understand cellular function
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.6s;">
+      <a href="/research-themes" class="btn-primary bg-white text-brand-primary hover:bg-gray-100">
+        Explore Research
+      </a>
+      <a href="/about" class="btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-brand-primary">
+        Meet the Team
+      </a>
+    </div>
+  </div>
+  
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+    <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Intro Section -->
+<section class="py-16 bg-white">
+  <div class="container-custom">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">
+        Advancing Biology Through Data Science
+      </h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8">
+        We are the Data-Driven Network Biology Group at the University of Southampton. 
+        We conduct data-driven research spanning single-cell biology, network analysis, 
+        and machine learning using tools like single-cell RNA sequencing, graph theory, 
+        and deep learning to uncover the molecular mechanisms underlying cellular function and disease.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="https://github.com/SGDDNB" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="text-brand-primary hover:text-brand-accent transition-colors duration-200"
+        >
+          View our GitHub →
+        </a>
+        <a 
+          href="https://www.southampton.ac.uk/people/5x7h2d/professor-jane-smith" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="text-brand-primary hover:text-brand-accent transition-colors duration-200"
+        >
+          PI Homepage →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Hero scroll blur effect
+  const hero = document.querySelector('section');
+  const heroImage = hero?.querySelector('img');
+  
+  if (hero && heroImage) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.5;
+      
+      if (scrolled < window.innerHeight) {
+        heroImage.style.transform = `translateY(${rate}px)`;
+        heroImage.style.filter = `blur(${scrolled / 100}px)`;
+      }
+    });
+  }
+</script>

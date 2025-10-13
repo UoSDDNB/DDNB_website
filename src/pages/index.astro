@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import TeamMemberCard from '../components/TeamMemberCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get content for teasers
+const themes = await getCollection('themes');
+const teamMembers = await getCollection('team');
+
+// Sort themes by order and take first 3
+const featuredThemes = themes
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+// Take first 3 team members for teaser
+const featuredTeam = teamMembers.slice(0, 3);
+---
+
+<BaseLayout title="Data-Driven Network Biology Group - University of Southampton">
+  <HeroSection />
+  
+  <!-- Research Themes Teaser -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Research Themes</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Our research spans multiple areas of computational biology, from single-cell analysis to network biology.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredThemes.map((theme) => (
+          <ThemeCard 
+            title={theme.data.title}
+            image={theme.data.image}
+            description={theme.data.description}
+            slug={theme.slug}
+          />
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/research-themes" class="btn-primary">
+          View All Research Themes
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Team Teaser -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          A diverse group of researchers passionate about advancing biology through data science.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredTeam.map((member) => (
+          <TeamMemberCard 
+            name={member.data.name}
+            role={member.data.role}
+            image={member.data.image}
+            quote={member.data.quote}
+            bioLong={member.data.bioLong}
+            github={member.data.github}
+            scholar={member.data.scholar}
+            website={member.data.website}
+            email={member.data.email}
+            slug={member.slug}
+          />
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/about" class="btn-primary">
+          Meet the Full Team
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Teaser -->
+  <section class="py-16 bg-brand-soft">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">About Our Group</h2>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+          We are a dynamic research group at the University of Southampton, dedicated to advancing 
+          our understanding of biological systems through innovative computational approaches. 
+          Our work combines cutting-edge experimental techniques with state-of-the-art data analysis methods.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/about" class="btn-primary">
+            Learn More About Us
+          </a>
+          <a href="mailto:ddnetbio@soton.ac.uk" class="btn-secondary">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import { getCollection } from 'astro:content';
+
+const themes = await getCollection('themes');
+const sortedThemes = themes.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Research Themes - Data-Driven Network Biology Group">
+  <!-- Hero Section -->
+  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Research Themes</h1>
+        <p class="text-xl opacity-90">
+          Our research spans multiple areas of computational biology, from single-cell analysis to network biology. 
+          We develop and apply cutting-edge computational methods to understand complex biological systems.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Mission Statement -->
+  <section class="py-12 bg-white">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Our Mission</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          We are dedicated to advancing our understanding of biological systems through innovative computational approaches. 
+          Our work combines cutting-edge experimental techniques with state-of-the-art data analysis methods to uncover 
+          the molecular mechanisms underlying cellular function and disease.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Research Themes Grid -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedThemes.map((theme) => (
+          <ThemeCard 
+            title={theme.data.title}
+            image={theme.data.image}
+            description={theme.data.description}
+            slug={theme.slug}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Interested in Our Research?</h2>
+        <p class="text-lg text-gray-600 mb-8">
+          We're always looking for talented researchers to join our group. 
+          Whether you're interested in single-cell biology, network analysis, or machine learning applications in biology, 
+          we'd love to hear from you.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/about" class="btn-primary">
+            Meet the Team
+          </a>
+          <a href="mailto:ddnetbio@soton.ac.uk" class="btn-secondary">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
