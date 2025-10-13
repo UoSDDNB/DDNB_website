@@ -8,7 +8,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
   <!-- Background Image -->
   <div class="absolute inset-0 z-0">
     <img 
-      src="/hero/your-main-image.jpg" 
+      src={`${basePath}hero/your-main-image.jpg`} 
       alt="Data-Driven Network Biology Group - Main hero image"
       class="w-full h-full object-cover"
     />
@@ -19,7 +19,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
   <div class="absolute inset-0 z-10 pointer-events-none">
     <!-- Floating RNA/DNA motifs -->
     <div class="absolute top-1/4 left-1/4 animate-float" style="animation-delay: 0s;">
-      <div class="w-8 h-8 text-brand-accent opacity-60">
+      <div class="w-8 h-8 text-skyMagenta opacity-60">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
@@ -27,7 +27,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     </div>
     
     <div class="absolute top-1/3 right-1/4 animate-float" style="animation-delay: 1s;">
-      <div class="w-6 h-6 text-brand-lime opacity-50">
+      <div class="w-6 h-6 text-babyBlue opacity-50">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <circle cx="12" cy="12" r="10"/>
           <path d="M8 12h8M12 8v8"/>
@@ -36,7 +36,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
     </div>
     
     <div class="absolute bottom-1/3 left-1/3 animate-float" style="animation-delay: 2s;">
-      <div class="w-10 h-10 text-brand-soft opacity-40">
+      <div class="w-10 h-10 text-tropicalIndigo opacity-40">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
         </svg>
@@ -53,10 +53,10 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
       Integrating data, biology, and computation to understand cellular function
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.6s;">
-      <a href={`${basePath}research-themes/`} class="btn-primary bg-white text-brand-primary hover:bg-gray-100">
+      <a href={`${basePath}research-themes/`} class="btn-primary bg-white text-tekhelet hover:bg-gray-100">
         Explore Research
       </a>
-      <a href={`${basePath}about/`} class="btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-brand-primary">
+      <a href={`${basePath}about/`} class="btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-tekhelet">
         Meet the Team
       </a>
     </div>
@@ -88,7 +88,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
           href="https://github.com/UoSDDNB" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="text-brand-primary hover:text-brand-accent transition-colors duration-200"
+          class="text-tekhelet hover:text-skyMagenta transition-colors duration-200"
         >
           View our GitHub →
         </a>
@@ -96,7 +96,7 @@ const basePath = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
           href="https://www.southampton.ac.uk/people/5x7h2d/professor-jane-smith" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="text-brand-primary hover:text-brand-accent transition-colors duration-200"
+          class="text-tekhelet hover:text-skyMagenta transition-colors duration-200"
         >
           PI Homepage →
         </a>

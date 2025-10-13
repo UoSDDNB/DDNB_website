@@ -7,17 +7,19 @@ export interface Props {
 }
 
 const { title, image, description, slug } = Astro.props;
+const basePath = import.meta.env.BASE_URL;
+const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
 ---
 
 <div class="card group cursor-pointer" onclick={`window.location.href='/research-themes#${slug}'`}>
   <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg">
     <img 
-      src={image} 
+      src={`${baseUrl}${image.replace('/', '')}`} 
       alt={`${title} research theme`}
       class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
     />
   </div>
-  <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-brand-primary transition-colors duration-200">
+  <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-tekhelet transition-colors duration-200">
     {title}
   </h3>
   <p class="text-gray-600 text-sm leading-relaxed">

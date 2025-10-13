@@ -5,11 +5,19 @@
 @tailwind utilities;
 
 :root {
-  --brand-primary: #1C7C54;
-  --brand-accent: #73E2A7;
-  --brand-soft: #DEF4C6;
-  --brand-dark: #1B512D;
-  --brand-lime: #B1CF5F;
+  /* New color palette */
+  --skyMagenta: #DA64B4;
+  --tekhelet: #482D8A;
+  --bittersweet: #F9565B;
+  --babyBlue: #78C4E8;
+  --tropicalIndigo: #8488DE;
+  
+  /* Legacy brand colors for backward compatibility */
+  --brand-primary: #482D8A; /* tekhelet */
+  --brand-accent: #DA64B4; /* skyMagenta */
+  --brand-soft: #e4f3fa; /* babyBlue-900 */
+  --brand-dark: #0e091c; /* tekhelet-100 */
+  --brand-lime: #78C4E8; /* babyBlue */
 }
 
 @layer base {
@@ -48,16 +56,16 @@
   }
   
   a {
-    @apply text-brand-primary transition-colors duration-200;
+    @apply text-tekhelet transition-colors duration-200;
   }
   
   a:hover {
-    @apply text-brand-accent underline;
+    @apply text-skyMagenta underline;
   }
   
   /* Focus styles for accessibility */
   *:focus {
-    @apply outline-none ring-2 ring-brand-accent ring-offset-2;
+    @apply outline-none ring-2 ring-skyMagenta ring-offset-2;
   }
   
   /* Reduced motion support */
@@ -78,11 +86,11 @@
   }
   
   .btn-primary {
-    @apply btn bg-brand-primary text-white hover:bg-brand-dark focus:ring-brand-accent;
+    @apply btn bg-tekhelet text-white hover:bg-tekhelet-600 focus:ring-skyMagenta;
   }
   
   .btn-secondary {
-    @apply btn bg-brand-soft text-brand-dark hover:bg-brand-accent focus:ring-brand-primary;
+    @apply btn bg-babyBlue-900 text-tekhelet-100 hover:bg-skyMagenta focus:ring-tekhelet;
   }
   
   .card {
@@ -90,7 +98,7 @@
   }
   
   .tag {
-    @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-brand-soft text-brand-dark;
+    @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-babyBlue-900 text-tekhelet-100;
   }
   
   .container-custom {

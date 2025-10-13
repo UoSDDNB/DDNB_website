@@ -9,8 +9,19 @@ const sortedThemes = themes.sort((a, b) => a.data.order - b.data.order);
 
 <BaseLayout title="Research Themes - Data-Driven Network Biology Group">
   <!-- Hero Section -->
-  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
-    <div class="container-custom">
+  <section class="relative py-16 text-white overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/hero/research-themes-hero.jpg" 
+        alt="Research Themes - Computational Biology"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-tekhelet bg-opacity-60"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10 container-custom">
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Research Themes</h1>
         <p class="text-xl opacity-90">

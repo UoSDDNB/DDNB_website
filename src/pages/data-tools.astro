@@ -13,7 +13,7 @@ const allTypes = [...new Set(tools.map(tool => tool.data.type))].sort();
 
 <BaseLayout title="Data & Tools - Data-Driven Network Biology Group">
   <!-- Hero Section -->
-  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+  <section class="py-16 bg-gradient-to-r from-tekhelet to-tekhelet-100 text-white">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Data & Tools</h1>
@@ -38,7 +38,7 @@ const allTypes = [...new Set(tools.map(tool => tool.data.type))].sort();
             type="text" 
             id="search-input"
             placeholder="Search tools and datasets..."
-            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-skyMagenta focus:border-transparent"
           />
         </div>
         
@@ -100,7 +100,7 @@ const allTypes = [...new Set(tools.map(tool => tool.data.type))].sort();
       <!-- No Results Message -->
       <div id="no-results" class="hidden text-center py-12">
         <p class="text-lg text-gray-600">No tools found matching your criteria.</p>
-        <button id="clear-filters" class="mt-4 text-brand-primary hover:text-brand-accent transition-colors duration-200">
+        <button id="clear-filters" class="mt-4 text-tekhelet hover:text-skyMagenta transition-colors duration-200">
           Clear all filters
         </button>
       </div>
@@ -224,10 +224,10 @@ const allTypes = [...new Set(tools.map(tool => tool.data.type))].sort();
 
 <style>
   .filter-btn {
-    @apply px-3 py-1 text-sm font-medium rounded-full border border-gray-300 text-gray-700 hover:border-brand-primary hover:text-brand-primary transition-colors duration-200;
+    @apply px-3 py-1 text-sm font-medium rounded-full border border-gray-300 text-gray-700 hover:border-tekhelet hover:text-tekhelet transition-colors duration-200;
   }
   
   .filter-btn.active {
-    @apply bg-brand-primary text-white border-brand-primary;
+    @apply bg-tekhelet text-white border-tekhelet;
   }
 </style>

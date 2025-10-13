@@ -9,7 +9,7 @@ const sortedHacks = hacks.sort((a, b) => new Date(b.data.date).getTime() - new D
 
 <BaseLayout title="Hacks - Data-Driven Network Biology Group">
   <!-- Hero Section -->
-  <section class="py-16 bg-gradient-to-r from-brand-primary to-brand-dark text-white">
+  <section class="py-16 bg-gradient-to-r from-tekhelet to-tekhelet-100 text-white">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Research Hacks</h1>
@@ -93,7 +93,7 @@ const sortedHacks = hacks.sort((a, b) => new Date(b.data.date).getTime() - new D
                   </div>
                 </div>
                 
-                <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-primary transition-colors duration-200">
+                <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-tekhelet transition-colors duration-200">
                   {hack.data.title}
                 </h3>
                 
@@ -107,7 +107,7 @@ const sortedHacks = hacks.sort((a, b) => new Date(b.data.date).getTime() - new D
                   <ul class="text-sm text-gray-600 space-y-1">
                     {hack.data.objectives.slice(0, 3).map(objective => (
                       <li class="flex items-start">
-                        <span class="text-brand-primary mr-2">•</span>
+                        <span class="text-tekhelet mr-2">•</span>
                         {objective}
                       </li>
                     ))}
@@ -124,7 +124,7 @@ const sortedHacks = hacks.sort((a, b) => new Date(b.data.date).getTime() - new D
                       href={hack.data.links.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      class="inline-flex items-center text-sm text-brand-primary hover:text-brand-accent transition-colors duration-200"
+                      class="inline-flex items-center text-sm text-tekhelet hover:text-skyMagenta transition-colors duration-200"
                       onclick="event.stopPropagation()"
                     >
                       <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
@@ -138,7 +138,7 @@ const sortedHacks = hacks.sort((a, b) => new Date(b.data.date).getTime() - new D
                       href={hack.data.links.datasets[0]} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      class="inline-flex items-center text-sm text-brand-primary hover:text-brand-accent transition-colors duration-200"
+                      class="inline-flex items-center text-sm text-tekhelet hover:text-skyMagenta transition-colors duration-200"
                       onclick="event.stopPropagation()"
                     >
                       <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
