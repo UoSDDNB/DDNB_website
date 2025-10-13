@@ -13,7 +13,7 @@ A modern, professional website for the Data-Driven Network Biology Group at the 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/SGDDNB/DDNB_website.git
+   git clone https://github.com/UoSDDNB/DDNB_website.git
    cd DDNB_website
    ```
 
@@ -304,7 +304,7 @@ The website automatically deploys to GitHub Pages when you push to the `main` br
 
 3. **View your changes**
    - Visit `https://www.ddnetbio.com` (custom domain)
-   - Or `https://sgddnb.github.io/DDNB_website/` (GitHub Pages URL)
+   - Or `https://uosddnb.github.io/DDNB_website/` (GitHub Pages URL)
 
 ### Custom Domain Setup
 
@@ -316,7 +316,7 @@ The website is configured for the custom domain `www.ddnetbio.com`:
    - Set Custom Domain to `www.ddnetbio.com`
    - Enable "Enforce HTTPS"
 3. **DNS configuration** (at your domain registrar):
-   - Create a CNAME record: `www` → `sgddnb.github.io`
+   - Create a CNAME record: `www` → `uosddnb.github.io`
 
 ### Manual Deployment
 
