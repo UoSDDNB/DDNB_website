@@ -7,5 +7,6 @@ export default defineConfig({
   site: 'https://www.ddnetbio.com',
   base: '/DDNB_website/', // Required for GitHub Pages deployment
   output: 'static',
-  integrations: [tailwind()]
+  integrations: [tailwind()],
+  trailingSlash: 'always'
 });
