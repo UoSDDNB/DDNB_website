@@ -1,6 +1,6 @@
 ---
 title: "Translational Control & Sequence Models"
-image: "/hero/biology-visualization.jpg"
+image: "/hero/translational-control-hero.jpg"
 description: "Using genomic foundation models to identify sequence determinants of translational efficiency for rational mRNA design."
 order: 3
 ---

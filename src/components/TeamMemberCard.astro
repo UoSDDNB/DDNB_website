@@ -25,6 +25,9 @@ const initials = name
   .join('')
   .toUpperCase()
   .slice(0, 2);
+
+// Generate unique ID for this card
+const cardId = `bio-${slug}`;
 ---
 
 <div class="card group">
@@ -62,11 +65,28 @@ const initials = name
       </blockquote>
     )}
     
-    <div class="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-4">
-      {bioLong}
+    <!-- Expandable bio section -->
+    <div class="w-full">
+      <div 
+        id={cardId}
+        class="text-sm text-gray-600 leading-relaxed mb-2 overflow-hidden transition-all duration-300 ease-in-out"
+        style="max-height: 4.5rem;"
+      >
+        {bioLong}
+      </div>
+      <button 
+        class="bio-toggle text-xs text-tekhelet hover:text-skyMagenta font-medium flex items-center justify-center mx-auto gap-1 transition-colors duration-200"
+        data-target={cardId}
+        aria-expanded="false"
+      >
+        <span class="toggle-text">Read more</span>
+        <svg class="w-4 h-4 transform transition-transform duration-300 toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
     </div>
     
-    <div class="flex space-x-3">
+    <div class="flex space-x-3 mt-4">
       {github && (
         <a 
           href={github} 
@@ -135,3 +155,30 @@ const initials = name
     </div>
   </div>
 </div>
+
+<script>
+  // Bio expand/collapse functionality
+  document.querySelectorAll('.bio-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      const bioDiv = document.getElementById(targetId);
+      const toggleText = button.querySelector('.toggle-text');
+      const toggleIcon = button.querySelector('.toggle-icon');
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      
+      if (isExpanded) {
+        // Collapse
+        bioDiv.style.maxHeight = '4.5rem';
+        toggleText.textContent = 'Read more';
+        toggleIcon.style.transform = 'rotate(0deg)';
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        // Expand
+        bioDiv.style.maxHeight = bioDiv.scrollHeight + 'px';
+        toggleText.textContent = 'Show less';
+        toggleIcon.style.transform = 'rotate(180deg)';
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

@@ -11,10 +11,10 @@ const basePath = import.meta.env.BASE_URL;
 const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
 ---
 
-<div class="card group cursor-pointer" onclick={`window.location.href='/research-themes#${slug}'`}>
+<a href={`${baseUrl}research-themes/#${slug}`} class="card group block hover:shadow-lg transition-shadow duration-300">
   <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg">
     <img 
-      src={`${baseUrl}${image.replace('/', '')}`} 
+      src={`${baseUrl}${image.replace(/^\//, '')}`} 
       alt={`${title} research theme`}
       class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
     />
@@ -25,4 +25,4 @@ const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
   <p class="text-gray-600 text-sm leading-relaxed">
     {description}
   </p>
-</div>
+</a>
