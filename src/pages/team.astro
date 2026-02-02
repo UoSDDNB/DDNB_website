@@ -4,14 +4,20 @@ import TeamMemberCard from '../components/TeamMemberCard.astro';
 import { getCollection } from 'astro:content';
 
 const teamMembers = await getCollection('team');
+// Sort by order field (ascending), members without order go to the end
+const sortedTeam = teamMembers.sort((a, b) => {
+  const orderA = a.data.order ?? 999;
+  const orderB = b.data.order ?? 999;
+  return orderA - orderB;
+});
 ---
 
-<BaseLayout title="About Us - Data-Driven Network Biology Group">
+<BaseLayout title="Meet the Team - Data-Driven Network Biology Group">
   <!-- Hero Section -->
   <section class="py-16 bg-gradient-to-r from-tekhelet to-tekhelet-100 text-white">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">About Our Group</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Meet the Team</h1>
         <p class="text-xl opacity-90">
           Integrating data, biology, and computation to understand cellular function
         </p>
@@ -110,7 +116,7 @@ const teamMembers = await getCollection('team');
   <section class="py-16 bg-white">
     <div class="container-custom">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Team</h2>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">
           A diverse group of researchers passionate about advancing biology through data science. 
           Our team combines expertise in computational biology, experimental biology, and data science.
@@ -118,7 +124,7 @@ const teamMembers = await getCollection('team');
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {teamMembers.map((member) => (
+        {sortedTeam.map((member) => (
           <TeamMemberCard 
             name={member.data.name}
             role={member.data.role}
@@ -128,6 +134,7 @@ const teamMembers = await getCollection('team');
             github={member.data.github}
             scholar={member.data.scholar}
             website={member.data.website}
+            linkedin={member.data.linkedin}
             email={member.data.email}
             slug={member.slug}
           />
@@ -183,12 +190,6 @@ const teamMembers = await getCollection('team');
                 <strong>Email:</strong> 
                 <a href="mailto:ddnetbio@soton.ac.uk" class="text-tekhelet hover:text-skyMagenta">
                   ddnetbio@soton.ac.uk
-                </a>
-              </p>
-              <p class="text-gray-600">
-                <strong>GitHub:</strong> 
-                <a href="https://github.com/SGDDNB" target="_blank" rel="noopener noreferrer" class="text-tekhelet hover:text-skyMagenta">
-                  @SGDDNB
                 </a>
               </p>
               <p class="text-gray-600">

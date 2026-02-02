@@ -88,11 +88,14 @@ const team = defineCollection({
     github: z.string().url().optional(),
     scholar: z.string().url().optional(),
     website: z.string().url().optional(),
+    linkedin: z.string().url().optional(),
+    orcid: z.string().url().optional(),
     bioLong: z.string(),
     background: z.object({
       degrees: z.array(z.string()),
     }),
     email: z.string().email(),
+    order: z.number().int().positive().optional(),
   }),
 });
 
