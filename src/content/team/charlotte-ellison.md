@@ -1,5 +1,5 @@
 ---
-name: "Miss Charlotte Ellison"
+name: "Charlotte Ellison"
 role: "PhD Student"
 image: "/assets/team/charlotte-ellison.png"
 quote: "I aim to build tools to make biological discovery open to all."

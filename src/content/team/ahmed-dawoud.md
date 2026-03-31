@@ -1,5 +1,5 @@
 ---
-name: "Dr. Ahmed Dawoud"
+name: "Ahmed Dawoud"
 role: "Research Fellow in Computational Biology"
 image: "/assets/team/ahmed-dawoud.png"
 quote: "I study how age-related clonal haematopoiesis influences human health."
