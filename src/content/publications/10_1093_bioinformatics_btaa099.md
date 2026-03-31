@@ -1,0 +1,18 @@
+---
+title: "GeneSwitches: ordering gene expression and functional events in single-cell experiments"
+authors:
+  - "Elaine Y Cao"
+  - "John F Ouyang"
+  - "Owen Rackham"
+year: 2020
+journal: "Bioinformatics"
+doi: "10.1093/bioinformatics/btaa099"
+url: "https://doi.org/10.1093/bioinformatics/btaa099"
+openAccessPdf: ""
+featured: false
+theme: ["network-biology"]
+socialTags: []
+abstract: "Abstract                                        Summary                     Emerging single-cell RNA-sequencing data technologies has made it possible to capture and assess the gene expression of individual cells. Based on the similarity of gene expression profiles, many tools have been developed to generate an in silico ordering of cells in the form of pseudo-time trajectories. However, these tools do not provide a means to find the ordering of critical gene expression changes over pseudo-time. We present GeneSwitches, a tool that takes any single-cell pseudo-time trajectory and determines the precise order of gene expression and functional-event changes over time. GeneSwitches uses a statistical framework based on logistic regression to identify the order in which genes are either switched on or off along pseudo-time. With this information, users can identify the order in which surface markers appear, investigate how functional ontologies are gained or lost over time and compare the ordering of switching genes from two related pseudo-temporal processes.                                                           Availability                     GeneSwitches is available at https://geneswitches.ddnetbio.com.                                                           Supplementary information                     Supplementary data are available at Bioinformatics online."
+---
+
+More details regarding 'GeneSwitches: ordering gene expression and functional events in single-cell experiments' can be added here.
