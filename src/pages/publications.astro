@@ -212,13 +212,15 @@ function highlightTeamMembers(authors: string[]): string {
 
 <script>
   // Search and filter functionality
-  const searchInput = document.getElementById('search-input');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
   const publicationsContainer = document.getElementById('publications-container');
   const noResults = document.getElementById('no-results');
   const clearFiltersBtn = document.getElementById('clear-filters');
   const filterBtns = document.querySelectorAll('.filter-btn');
   
-  let currentFilters = {
+  type FilterKey = 'search' | 'year' | 'theme' | 'featured';
+  
+  let currentFilters: Record<FilterKey, string> = {
     search: '',
     year: 'all',
     theme: 'all',
@@ -227,23 +229,30 @@ function highlightTeamMembers(authors: string[]): string {
   
   // Search functionality
   searchInput?.addEventListener('input', (e) => {
-    currentFilters.search = e.target.value.toLowerCase();
-    filterPublications();
+    const target = e.target as HTMLInputElement;
+    if (target) {
+      currentFilters.search = target.value.toLowerCase();
+      filterPublications();
+    }
   });
   
   // Filter buttons
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      const value = btn.dataset.value;
+      const htmlBtn = btn as HTMLElement;
+      const filter = htmlBtn.dataset.filter as FilterKey;
+      const value = htmlBtn.dataset.value;
+      
+      if (!filter || typeof value === 'undefined') return;
       
       // Update active state for this filter type
       filterBtns.forEach(b => {
-        if (b.dataset.filter === filter) {
-          b.classList.remove('active');
+        const hb = b as HTMLElement;
+        if (hb.dataset.filter === filter) {
+          hb.classList.remove('active');
         }
       });
-      btn.classList.add('active');
+      htmlBtn.classList.add('active');
       
       // Update current filters
       currentFilters[filter] = value;
@@ -254,12 +263,13 @@ function highlightTeamMembers(authors: string[]): string {
   // Clear filters
   clearFiltersBtn?.addEventListener('click', () => {
     currentFilters = { search: '', year: 'all', theme: 'all', featured: 'all' };
-    searchInput.value = '';
+    if (searchInput) searchInput.value = '';
     
     filterBtns.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.value === 'all') {
-        btn.classList.add('active');
+      const htmlBtn = btn as HTMLElement;
+      htmlBtn.classList.remove('active');
+      if (htmlBtn.dataset.value === 'all') {
+        htmlBtn.classList.add('active');
       }
     });
     
@@ -272,12 +282,14 @@ function highlightTeamMembers(authors: string[]): string {
     let visibleCount = 0;
     
     publicationItems?.forEach(item => {
-      const title = item.querySelector('h3 a')?.textContent?.toLowerCase() || '';
-      const authors = item.querySelector('.text-gray-700')?.textContent?.toLowerCase() || '';
-      const journal = item.querySelector('em')?.textContent?.toLowerCase() || '';
-      const themes = item.dataset.themes?.toLowerCase() || '';
-      const featured = item.dataset.featured === 'true';
-      const year = item.closest('.year-section')?.dataset.year;
+      const htmlItem = item as HTMLElement;
+      const title = htmlItem.querySelector('h3 a')?.textContent?.toLowerCase() || '';
+      const authors = htmlItem.querySelector('.text-gray-700')?.textContent?.toLowerCase() || '';
+      const journal = htmlItem.querySelector('em')?.textContent?.toLowerCase() || '';
+      const themes = htmlItem.dataset.themes?.toLowerCase() || '';
+      const featured = htmlItem.dataset.featured === 'true';
+      const yearSection = htmlItem.closest('.year-section') as HTMLElement | null;
+      const year = yearSection?.dataset.year;
       
       const matchesSearch = !currentFilters.search || 
         title.includes(currentFilters.search) || 
@@ -292,20 +304,21 @@ function highlightTeamMembers(authors: string[]): string {
         (currentFilters.featured === 'false' && !featured);
       
       if (matchesSearch && matchesYear && matchesTheme && matchesFeatured) {
-        item.style.display = 'block';
+        htmlItem.style.display = 'block';
         visibleCount++;
       } else {
-        item.style.display = 'none';
+        htmlItem.style.display = 'none';
       }
     });
     
     // Show/hide year sections based on visible publications
     yearSections?.forEach(section => {
-      const visibleInSection = section.querySelectorAll('.publication-item[style*="block"], .publication-item:not([style*="none"])');
+      const htmlSection = section as HTMLElement;
+      const visibleInSection = htmlSection.querySelectorAll('.publication-item[style*="block"], .publication-item:not([style*="none"])');
       if (visibleInSection.length > 0) {
-        section.style.display = 'block';
+        htmlSection.style.display = 'block';
       } else {
-        section.style.display = 'none';
+        htmlSection.style.display = 'none';
       }
     });
     

@@ -161,11 +161,14 @@ const cardId = `bio-${slug}`;
   document.querySelectorAll('.bio-toggle').forEach(button => {
     button.addEventListener('click', () => {
       const targetId = button.getAttribute('data-target');
-      const bioDiv = document.getElementById(targetId);
-      const toggleText = button.querySelector('.toggle-text');
-      const toggleIcon = button.querySelector('.toggle-icon');
+      if (!targetId) return;
+      const bioDiv = document.getElementById(targetId) as HTMLElement | null;
+      const toggleText = button.querySelector('.toggle-text') as HTMLElement | null;
+      const toggleIcon = button.querySelector('.toggle-icon') as HTMLElement | null;
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
       
+      if (!bioDiv || !toggleText || !toggleIcon) return;
+
       if (isExpanded) {
         // Collapse
         bioDiv.style.maxHeight = '4.5rem';

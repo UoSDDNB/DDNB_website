@@ -15,7 +15,7 @@ export interface Props {
   slug: string;
 }
 
-const { title, type, description, image, imageAlt, tags, urls, slug } = Astro.props;
+const { title, type, description, image, imageAlt, tags, urls } = Astro.props;
 const basePath = import.meta.env.BASE_URL;
 const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
 
