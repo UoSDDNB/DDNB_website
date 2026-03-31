@@ -70,7 +70,7 @@ const publications = defineCollection({
     journal: z.string(),
     doi: z.string().optional(),
     url: z.string().url().optional(),
-    openAccessPdf: z.string().url().optional(),
+    openAccessPdf: z.string().optional(),
     featured: z.boolean().default(false),
     theme: z.array(z.string()),
     socialTags: z.array(z.string()).optional(),

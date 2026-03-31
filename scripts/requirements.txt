@@ -1,0 +1,11 @@
+# This file lists the Python dependencies for the scripts in this directory.
+
+# Note: Our current `fetch_publications.py` is written specifically to use 
+# only built-in standard Python libraries (like `urllib`, `json`, `os`).
+# Therefore, it will run perfectly well without any third-party packages installed!
+
+# However, if you decide to expand the script in the future (e.g., using `requests` 
+# for easier API calls or `beautifulsoup4` for web scraping), you can add them below.
+
+# requests==2.31.0
+# beautifulsoup4==4.12.2

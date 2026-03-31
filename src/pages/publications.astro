@@ -118,7 +118,7 @@ function highlightTeamMembers(authors: string[]): string {
   <!-- Publications by Year -->
   <section class="py-16 bg-gray-50">
     <div class="container-custom">
-      <div id="publications-container">
+      <div id="publications-container" class="max-w-4xl mx-auto">
         {Object.entries(publicationsByYear).map(([year, yearPublications]) => (
           <div class="year-section mb-12" data-year={year}>
             <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-tekhelet pb-2">

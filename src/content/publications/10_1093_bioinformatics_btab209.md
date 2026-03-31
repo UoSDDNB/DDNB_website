@@ -1,0 +1,19 @@
+---
+title: "ShinyCell: simple and sharable visualization of single-cell gene expression data"
+authors:
+  - "John F Ouyang"
+  - "Uma S Kamaraj"
+  - "Elaine Y Cao"
+  - "Owen Rackham"
+year: 2021
+journal: "Bioinformatics"
+doi: "10.1093/bioinformatics/btab209"
+url: "https://doi.org/10.1093/bioinformatics/btab209"
+openAccessPdf: ""
+featured: false
+theme: ["network-biology"]
+socialTags: []
+abstract: "Abstract                                        Motivation                     As the generation of complex single-cell RNA sequencing datasets becomes more commonplace it is the responsibility of researchers to provide access to these data in a way that can be easily explored and shared. Whilst it is often the case that data is deposited for future bioinformatic analysis many studies do not release their data in a way that is easy to explore by non-computational researchers.                                                           Results                     In order to help address this we have developed ShinyCell, an R package that converts single-cell RNA sequencing datasets into explorable and shareable interactive interfaces. These interfaces can be easily customized in order to maximize their usability and can be easily uploaded to online platforms to facilitate wider access to published data.                                                           Availability and implementation                     ShinyCell is available at https://github.com/SGDDNB/ShinyCell and https://figshare.com/projects/ShinyCell/100439.                                                           Supplementary information                     Supplementary data are available at Bioinformatics online."
+---
+
+More details regarding 'ShinyCell: simple and sharable visualization of single-cell gene expression data' can be added here.
