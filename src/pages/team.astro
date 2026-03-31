@@ -10,6 +10,9 @@ const sortedTeam = teamMembers.sort((a, b) => {
   const orderB = b.data.order ?? 999;
   return orderA - orderB;
 });
+
+const basePath = import.meta.env.BASE_URL;
+const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
 ---
 
 <BaseLayout title="Meet the Team - Data-Driven Network Biology Group">
@@ -102,7 +105,7 @@ const sortedTeam = teamMembers.sort((a, b) => {
           <a href="mailto:ddnetbio@soton.ac.uk" class="btn-primary">
             Get in Touch
           </a>
-          <a href="/publications" class="btn-secondary">
+          <a href={`${baseUrl}publications/`} class="btn-secondary">
             View Our Work
           </a>
         </div>
