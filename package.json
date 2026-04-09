@@ -19,7 +19,7 @@
     "@types/node": "^24.7.2",
     "@typescript-eslint/eslint-plugin": "^8.46.0",
     "@typescript-eslint/parser": "^8.46.0",
-    "astro": "^5.14.4",
+    "astro": "^6.1.5",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.37.0",
     "fuse.js": "^7.1.0",
