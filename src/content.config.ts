@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection} from 'astro:content';
+import { z } from 'zod'; // Import directly from zod to avoid deprecation warning
 import { glob } from 'astro/loaders';
 
 const themes = defineCollection({

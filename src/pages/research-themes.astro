@@ -39,7 +39,7 @@ const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
   <!-- Research Themes - Full Details -->
   {sortedThemes.map((theme, index) => (
     <section 
-      id={theme.slug} 
+      id={theme.id} 
       class={`py-16 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
     >
       <div class="container-custom">
@@ -55,7 +55,7 @@ const baseUrl = basePath.endsWith('/') ? basePath : basePath + '/';
             <h2 class="text-3xl font-bold text-gray-900 mb-4">{theme.data.title}</h2>
             <p class="text-lg text-gray-600 mb-6">{theme.data.description}</p>
             <div class="prose prose-gray max-w-none text-gray-700">
-              <Fragment set:html={theme.body.replace(/\*\*(.*?)\*\*/g, '<strong class="text-tekhelet">$1</strong>').replace(/\n\n/g, '</p><p class="mb-4">')} />
+              <Fragment set:html={(theme.body ?? '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-tekhelet">$1</strong>').replace(/\n\n/g, '</p><p class="mb-4">')} />
             </div>
           </div>
         </div>
