@@ -14,7 +14,7 @@ ORCID_IDS = [
     "0000-0003-0164-7773", # Ahmed Dawoud
     "0000-0002-5609-868X", # Moi Nicholas
     "0009-0002-7999-859X", # Charlotte Ellison
-    # Add Disha 
+    "0000-0002-7266-854X", # Disha Mehta
 ]
 
 ### temporary hack for interactive work
@@ -277,7 +277,8 @@ def audit_author_names(orcid_to_dois):
         "0000-0002-4390-0872": "Owen Rackham",
         "0000-0003-0164-7773": "Ahmed Dawoud",
         "0000-0002-5609-868X": "Moi Taiga Nicholas",
-        "0009-0002-7999-859X": "Charlotte Ellison"
+        "0009-0002-7999-859X": "Charlotte Ellison",
+        "0000-0002-7266-854X": "Disha Mehta",
     }
     
     STANDARD_NAMES = [
